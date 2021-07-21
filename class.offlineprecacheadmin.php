@@ -70,12 +70,10 @@ class OfflinePrecacheAdmin {
 		}
 	}
 
-	public static function get_page_url( $page = 'config' ) {
+	public static function get_page_url(  ) {
 
 		$args = array( 'page' => 'offline-precache-key-config' );
-		$url = add_query_arg( $args, admin_url( 'options-general.php' ) );
-
-		return $url;
+		return add_query_arg( $args, admin_url( 'options-general.php' ) );
 	}
 	private static function save_options(){
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -89,9 +87,9 @@ class OfflinePrecacheAdmin {
 			update_option( $option, isset( $_POST[$option] ) && strtolower($_POST[$option]) == "on" ? '1' : '0' );
 		}
 		if(!empty($_POST['offline_precache_page_id']) ){
-			$page = get_post( (int) $_POST['offline_precache_page_id'] );
+			$page = get_post( (int) sanitize_text_field($_POST['offline_precache_page_id']) );
 			if ($page->post_status == 'publish') {
-				update_option( "offline_precache_page_id", $_POST['offline_precache_page_id'] );
+				update_option( "offline_precache_page_id", $page->ID );
 			}
 		}
 		if(!empty($_POST['custom_strategies']) && is_array($_POST['custom_strategies'])){
@@ -100,7 +98,7 @@ class OfflinePrecacheAdmin {
 			foreach ($custom_strategies as $mainKey => $custom_strategy){
 				if(empty($custom_strategy['path'])) continue;
 				foreach ($custom_strategy as $key => $value){
-					if($key == "path" && sanitize_text_field(trim($value)) == "") continue;
+					if($key == "path" && trim($value) == "") continue;
 					$sanitized_strategies[$mainKey][$key] = sanitize_text_field($value);
 				}
 			}
@@ -119,6 +117,7 @@ class OfflinePrecacheAdmin {
 		if(!is_array($custom_strategies))
 			$custom_strategies = [];
 
+		$custom_strategies = array_map('esc_attr', $custom_strategies);
 		if($withUrl){
 			$base_url = get_bloginfo('url');
 			array_walk($custom_strategies, function (&$item) use ($base_url) {
