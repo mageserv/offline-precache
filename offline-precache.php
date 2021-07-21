@@ -7,7 +7,7 @@
 Plugin Name: Offline Pre-Cache
 Plugin URI: https://mageserv-ltd.com
 Description: If browsing your website online or offline is what you need, so you can use this extension to precache your website to visitors devices so they can browse your website offline.
-Version: 1.0.0
+Version: 1.0.1
 Author: Tiefanovic
 Author URI: https://mageserv-ltd.com/
 License: GPLv2 or later
