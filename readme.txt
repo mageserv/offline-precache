@@ -3,7 +3,7 @@ Contributors: Tiefanovic
 Tags: offline precache,pwa,workbox,service workers
 Requires at least: 4.6
 Tested up to: 5.7
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 
 The missing plugin which will make your website load as a rocket even offline.
@@ -27,6 +27,10 @@ Upload the Offline Pre-Cache plugin to your blog, activate it
 You're done!
 
 == Changelog ==
+
+= 1.0.1 =
+*Release Date - 14 July 2021*
+* Sanitize all input fields before adding it to database
 
 = 1.0.0 =
 *Release Date - 14 July 2021*
